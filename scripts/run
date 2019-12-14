@@ -2,4 +2,4 @@
 
 docker stop leavebot
 docker rm leavebot
-docker run --name leavebot -it leavebot
+docker run --name leavebot -it -e USER_TOKEN=$USER_TOKEN leavebot

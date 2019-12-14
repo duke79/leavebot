@@ -1,10 +1,20 @@
 #!/usr/bin/env bash
 
+export APP_NAME=shipsy-leave-bot
+
+
 # brew tap heroku/brew && brew install heroku
 # heroku login
+
+## https://github.com/fiorix/freegeoip/issues/171
 # heroku container:login
 
-## heroku create
+## heroku create $APP_NAME
 
-heroku container:push -a shipsy-leave-bot web
-heroku container:release -a shipsy-leave-bot web
+## https://devcenter.heroku.com/articles/config-vars
+# heroku config:set USER_TOKEN=$USER_TOKEN -a $APP_NAME
+
+heroku container:push worker -a $APP_NAME
+heroku container:release worker -a $APP_NAME
+
+heroku logs --tail -a $APP_NAME

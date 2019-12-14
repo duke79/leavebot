@@ -8,5 +8,8 @@ COPY . /code
 
 RUN python -m pip install -r ./requirements.txt
 
-ENTRYPOINT ["./scripts/bot"]
+## https://github.com/heroku/cli/issues/1081
+# ENTRYPOINT ["./scripts/bot"]
+CMD ["./scripts/bot"]
+
 # CMD ["bot.py"]
