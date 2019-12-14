@@ -69,7 +69,7 @@ def run_bot():
             send_message(recipient=message["user"],
                          sender="Leave Bot",
                         #  message=message["text"])
-                         message=exec_command(message["text"]))
+                         message=exec_command(message))
 
     def on_error(ws, error):
         print_local(error)

@@ -1,0 +1,7 @@
+**/.vscode
+
+# python
+**/__pycache__
+**/*.pyc
+**/*.pytest_cache
+**/*.*___jb_tmp___

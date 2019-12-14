@@ -1,17 +1,32 @@
-def exec_command(args):
+from src.driver import apply
+from src.db import DB
+import asyncio
+
+def exec_command(message):
+    args = message['text']
+    user = message['user']
+    # print('args: ' + args)
     if ' ' in args:
         cmd, args = tuple(args.split(' ', 1))
     else:
         cmd = args
+    # print(cmd)
+    # print(args)
     # to_exec = f"""ret = Commands('{args}').{cmd}()"""
 
-    return Commands().run(cmd, args)
+    return Commands().run(cmd, args, user)
 
 class Commands:
     def __init__(self):
         pass
 
-    def run(self, cmd, args):
+    def run(self, cmd, args, user):
+        # slack_id = user['id']
+        slack_id = user
+        # print("slack_id: " + user)
+        db = DB(slack_id)
+
+        # print(cmd)
         if cmd == "help":
             ret = "\n".join(("Available commands:",
                         "help: Prints the list of available commands",
@@ -20,7 +35,19 @@ class Commands:
             ))
             return ret
         elif cmd == "login":
-            pass
+            # print(args)
+            user_id, user_pass = args.split(' ')
+            # print('setting user details')
+            db.greythr_user_id = user_id
+            db.greythr_password =  user_pass
+            db.freeze()
+        elif cmd == "apply":
+            start, end = args.split(' ')
+            # userid, passwd = 'T12546', '@123456789'
+            # userid, passwd = 'S12667', 'Dynamic@@123'
+            res = asyncio.run(apply(db.greythr_user_id, db.greythr_password, start, end))
+            return res
+
         else:
             ret = "Command not available!"
             return ret
