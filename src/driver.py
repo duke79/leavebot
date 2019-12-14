@@ -100,6 +100,12 @@ class Driver:
     async def apply_leave(self, start, end):
         import requests
 
+        start = start.replace(u"\xa0", u" ")
+        end = end.replace(u"\xa0", u" ")
+
+        print(start)
+        print(end)
+
         url = "https://llama.greythr.com/v2/employee/apply/leave"
 
         form_data = {

@@ -45,7 +45,10 @@ class Commands:
             start, end = args.split(' ')
             # userid, passwd = 'T12546', '@123456789'
             # userid, passwd = 'S12667', 'Dynamic@@123'
-            res = asyncio.run(apply(db.greythr_user_id, db.greythr_password, start, end))
+            
+            # login T12546 @123456789
+            # apply ‘18 Dec 2019’ ‘19 Dec 2019’
+            res = asyncio.run(apply(db.greythr_user_id, db.greythr_password, start[1:-1], end[1:-1]))
             return res
 
         else:
