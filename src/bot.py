@@ -1,11 +1,17 @@
 # ref : https://github.com/slackapi/python-slackclient
-import sys
-import uuid
+import sys, os
 import slack
 # from src.py.core.config import Config
 from commands import exec_command
+import logging
 
-slack_token = Config()["slackbot"]["user_token"]
+# slack_token = Config()["slackbot"]["user_token"]
+try:
+    slack_token = os.environ["USER_TOKEN"]
+except KeyError as e:
+    logging.error("environment variable USER_TOKEN is not set")
+    exit(1)
+
 # authorized_users = Config()["slackbot"]["authorized_user_ids"]
 client = slack.WebClient(slack_token)
 
@@ -13,7 +19,7 @@ console_out = sys.stdout
 
 
 def print_local(arg):
-    # console_out.write(arg) #Not working
+    console_out.write(arg) #Not working
     pass
 
 

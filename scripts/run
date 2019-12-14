@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+docker stop leavebot
+docker rm leavebot
+docker run --name leavebot -it leavebot
