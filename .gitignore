@@ -1,7 +1,11 @@
 **/.vscode
+**/.idea
 
 # python
 **/__pycache__
 **/*.pyc
 **/*.pytest_cache
 **/*.*___jb_tmp___
+
+# others
+/data/*

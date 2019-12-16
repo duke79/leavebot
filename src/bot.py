@@ -28,7 +28,7 @@ def users_list():
     return response.data["members"]
 
 
-def send_message(recipient='#random', sender="Unnamed bot", message="Hello!"):
+def send_message(recipient='#random', sender="Unnamed bot", message="Hello!", blocks=None):
     users = [user["id"] for user in users_list()]
     if recipient in users:  # Direct message to the user
         recipient = client.im_open(user=recipient)
@@ -37,7 +37,8 @@ def send_message(recipient='#random', sender="Unnamed bot", message="Hello!"):
     response = client.chat_postMessage(
         channel=recipient,
         # username=sender,
-        text=message)
+        text=message,
+        blocks=blocks)
 
     assert response["ok"]
     assert response["message"]["text"] == "Hello world!"
@@ -66,10 +67,12 @@ def run_bot():
         if str(message["type"]) == "message":
             print_local("%s says: %s" % (message["user"], message["text"]))
 
+            message, blocks = exec_command(message)
             send_message(recipient=message["user"],
                          sender="Leave Bot",
                         #  message=message["text"])
-                         message=exec_command(message))
+                         message=message,
+                         blocks=blocks)
 
     def on_error(ws, error):
         print_local(error)
